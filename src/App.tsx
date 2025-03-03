@@ -4,13 +4,22 @@ import Home from "./components/home";
 import routes from "tempo-routes";
 import DashboardLayout from "./components/dashboard/DashboardLayout";
 
-// Lazy load dashboard pages
+// Lazy load pages
 const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
 const ProfilePage = lazy(() => import("./pages/profile/ProfilePage"));
 const SettingsPage = lazy(() => import("./pages/settings/SettingsPage"));
 const MenuBuilder = lazy(() => import("./pages/menu/MenuBuilder"));
 const QRCodeGenerator = lazy(() => import("./pages/qrcode/QRCodeGenerator"));
 const PublicMenuView = lazy(() => import("./components/menu/PublicMenuView"));
+
+// New pages
+const FeaturesPage = lazy(() => import("./pages/features/FeaturesPage"));
+const DemoPage = lazy(() => import("./pages/demo/DemoPage"));
+const ContactPage = lazy(() => import("./pages/contact/ContactPage"));
+const BlogPage = lazy(() => import("./pages/blog/BlogPage"));
+const HelpCenterPage = lazy(() => import("./pages/help/HelpCenterPage"));
+const TutorialsPage = lazy(() => import("./pages/tutorials/TutorialsPage"));
+const FAQPage = lazy(() => import("./pages/faq/FAQPage"));
 
 function App() {
   return (
@@ -22,8 +31,20 @@ function App() {
       }
     >
       <>
+        {/* Tempo routes */}
+        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
+
         <Routes>
           <Route path="/" element={<Home />} />
+
+          {/* New pages */}
+          <Route path="/features" element={<FeaturesPage />} />
+          <Route path="/demo" element={<DemoPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/help-center" element={<HelpCenterPage />} />
+          <Route path="/tutorials" element={<TutorialsPage />} />
+          <Route path="/faq" element={<FAQPage />} />
 
           {/* Dashboard routes */}
           <Route path="/dashboard" element={<DashboardLayout />}>
@@ -50,8 +71,15 @@ function App() {
 
           {/* Public menu route */}
           <Route path="/menu/:profileId" element={<PublicMenuView />} />
+
+          {/* Allow Tempo routes to capture /tempobook/* paths */}
+          {import.meta.env.VITE_TEMPO === "true" && (
+            <Route path="/tempobook/*" />
+          )}
+
+          {/* Fallback route */}
+          <Route path="*" element={<Home />} />
         </Routes>
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
       </>
     </Suspense>
   );

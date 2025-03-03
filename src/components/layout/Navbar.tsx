@@ -33,9 +33,11 @@ const Navbar = ({
   };
 
   const navLinks = [
-    { name: "Features", href: "#features" },
-    { name: "FAQ", href: "#faq" },
-    { name: "Contact", href: "#contact" },
+    { name: "Features", href: "/features" },
+    { name: "Demo", href: "/demo" },
+    { name: "Blog", href: "/blog" },
+    { name: "Help Center", href: "/help-center" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -59,13 +61,13 @@ const Navbar = ({
           {/* Desktop navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-gray-600 hover:text-primary px-3 py-2 text-sm font-medium"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -164,14 +166,14 @@ const Navbar = ({
         <div className="md:hidden bg-white border-t border-gray-200">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
 
             {!isLoggedIn && (

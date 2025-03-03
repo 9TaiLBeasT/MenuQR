@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,7 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { QrCode, BarChart3, Utensils } from "lucide-react";
+import { QrCode, BarChart3, MenuSquare } from "lucide-react";
 
 interface FeatureCardProps {
   icon: React.ReactNode;
@@ -59,7 +60,7 @@ const FeatureSection = ({
   subtitle = "Everything you need to create and manage your restaurant's digital menu experience",
   features = [
     {
-      icon: <Utensils size={24} />,
+      icon: <MenuSquare size={24} />,
       title: "Menu Builder",
       description:
         "Create beautiful, categorized menus with images, descriptions, and dietary information.",
