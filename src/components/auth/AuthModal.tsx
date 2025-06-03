@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Button } from "../ui/button";
 import LoginForm from "./LoginForm";
@@ -118,6 +118,9 @@ const AuthModal = ({
         <Button variant="outline">Sign In</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md p-0 overflow-hidden bg-background">
+        <DialogHeader>
+          <DialogTitle className="sr-only">Authentication</DialogTitle>
+        </DialogHeader>
         <Tabs
           value={activeTab}
           onValueChange={(value) => setActiveTab(value as "login" | "signup")}
