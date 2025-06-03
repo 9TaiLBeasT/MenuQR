@@ -24,6 +24,26 @@ export const getUserSettings = async (): Promise<UserSettings | null> => {
       .eq("id", user.id)
       .single();
 
+    // Handle case where no settings exist yet
+    if (error && error.code === 'PGRST116') {
+      // Create default settings
+      const defaultSettings: Partial<UserSettings> = {
+        id: user.id,
+        email_notifications: true,
+        whatsapp_support: false,
+        theme: 'light'
+      };
+
+      const { data: newSettings, error: insertError } = await supabase
+        .from("user_settings")
+        .insert([defaultSettings])
+        .select()
+        .single();
+
+      if (insertError) throw insertError;
+      return newSettings as UserSettings;
+    }
+
     if (error) throw error;
     return data as UserSettings;
   } catch (error) {
@@ -76,9 +96,6 @@ export const changePassword = async (newPassword: string): Promise<boolean> => {
 // Delete user account
 export const deleteAccount = async (): Promise<boolean> => {
   try {
-    // This is a simplified version. In a real app, you might want to:
-    // 1. Delete all user data from various tables first
-    // 2. Then delete the user account
     const { error } = await supabase.rpc("delete_user");
 
     if (error) throw error;
